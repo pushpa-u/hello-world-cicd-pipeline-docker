@@ -32,6 +32,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags}} 
           labels: ${{ steps.meta.outputs.labels}} 
       
-      - name: Deploy container
-        run: |
-          docker run -d -p 3002:3000 --name my-react-app ${{ secrets.DOCKERHUB_USERNAME }}/react-hello-world:latest
+#      - name: Deploy container
+#       run: |
+#        docker run -d -p 3002:3000 --name my-react-app ${{ secrets.DOCKERHUB_USERNAME }}/react-hello-world:latest
