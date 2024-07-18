@@ -1,0 +1,37 @@
+name: Publish Docker images to Docker Hub
+on: 
+  push: 
+    branch: main
+
+jobs: 
+  build_and_push:
+    name: Build and push images to docker hub
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Login into docker hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Docker meta data fields set ( tag, label)
+        id: meta
+        uses: docker/metadata-action@v5
+        with: 
+          images: pushpau/react-hello-world
+      
+      - name: Build and push docker images
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags}} 
+          labels: ${{ steps.meta.outputs.labels}} 
+      
+      - name: Deploy container
+        run: |
+          docker run -d -p 3002:3000 --name my-react-app ${{ secrets.DOCKERHUB_USERNAME }}/react-hello-world:latest
