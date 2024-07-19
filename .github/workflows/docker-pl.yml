@@ -31,6 +31,7 @@ jobs:
           git config --global user.email ${{secrets.USEREMAIL_GITHUB}}
           git add VERSION
           git commit -m "Increment version to ${{ steps.version.outputs.new_version }}"
+          echo "${{ secrets.MY_PAT }}" | git credential approve
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
