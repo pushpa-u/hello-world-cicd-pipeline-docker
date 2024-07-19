@@ -1,7 +1,7 @@
 name: Publish Docker images to Docker Hub
 on: 
   push: 
-    branch: main
+    branches: [main]
 
 jobs: 
   build_and_push:
