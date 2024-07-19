@@ -41,16 +41,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with: 
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/react-hello-world
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/react-dokcer-pipeline
       
       - name: Build and push docker images
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/react-hello-world:v${{ steps.version.outputs.new_version }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/react-dokcer-pipeline:v${{ steps.version.outputs.new_version }}
           labels: ${{ steps.meta.outputs.labels}} 
       
-#      - name: Deploy container
-#       run: |
-#        docker run -d -p 3002:3000 --name my-react-app ${{ secrets.DOCKERHUB_USERNAME }}/react-hello-world:latest
