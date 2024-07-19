@@ -25,14 +25,15 @@ jobs:
         id: version
         run: ./increment_version.sh
 
-#      - name: Commit new version
- #       run: |
-  #        git config --global user.name ${{secrets.USERNAME_GITHUB}}
-  #        git config --global user.email ${{secrets.USEREMAIL_GITHUB}}
-   #       git remote set-url origin https://${{secrets.USERNAME_GITHUB}}:${{ secrets.PAT }}@github.com/${{secrets.USERNAME_GITHUB}}/hello-world-cicd-pipeline-docker.git
-    #      git add VERSION
-     #     git commit -m "Increment version to ${{ steps.version.outputs.new_version }}"
-      #    git push origin main
+      - name: Update the VERSION File in Repo
+        run: |
+          git config --global user.name "pushpa-u"
+          git config --global user.email "pushpa.u@10decoders.in"
+          git add VERSION
+          git commit -m "Increment version to ${{ steps.version.outputs.new_version }}"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker meta data fields set ( tag, label)
         id: meta
