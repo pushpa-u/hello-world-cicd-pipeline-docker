@@ -23,18 +23,19 @@ jobs:
 
       - name: Increment version
         id: version
-        run: ./increment_version.sh
-
-      - name: Update the VERSION File in Repo
+        run: | 
+          ./increment_version.sh
+          cat VERSION
+    
+      - name: Commit updated VERSION file
         run: |
           git config --global user.name ${{secrets.USERNAME_GITHUB}}
           git config --global user.email ${{secrets.USEREMAIL_GITHUB}}
           git add VERSION
           git commit -m "Increment version to ${{ steps.version.outputs.new_version }}"
-          echo "${{ secrets.PAT }}" | git credential approve
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
       - name: Docker meta data fields set ( tag, label)
         id: meta
