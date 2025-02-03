@@ -1,6 +1,8 @@
 
 import './App.css';
 
+const apiKey = "12345-abcdef-67890"; 
+const unusedVariable = "This is unused"; 
 function App() {
   return (
     <div className="App">
