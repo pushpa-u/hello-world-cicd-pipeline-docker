@@ -50,27 +50,27 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Increment version
-        id: version
-        run: |
-          ./increment_version.sh
-          cat VERSION
+      # - name: Increment version
+      #   id: version
+      #   run: |
+      #     ./increment_version.sh
+      #     cat VERSION
     
-      - name: Commit updated VERSION file
-        run: |
-          git config --global user.name "pushpa-u"
-          git config --global user.email "pushpa.u@10decoders.in"
-          git add VERSION
-          git commit -m "Increment version to ${{ steps.version.outputs.new_version }}"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }} 
+      # - name: Commit updated VERSION file
+      #   run: |
+      #     git config --global user.name "pushpa-u"
+      #     git config --global user.email "pushpa.u@10decoders.in"
+      #     git add VERSION
+      #     git commit -m "Increment version to ${{ steps.version.outputs.new_version }}"
+      #     git push
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.PAT }} 
 
-      - name: Docker meta data fields set ( tag, label)
-        id: meta
-        uses: docker/metadata-action@v5
-        with: 
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/react-dokcer-pipeline
+      # - name: Docker meta data fields set ( tag, label)
+      #   id: meta
+      #   uses: docker/metadata-action@v5
+      #   with: 
+      #     images: ${{ secrets.DOCKERHUB_USERNAME }}/react-dokcer-pipeline
       
       - name: Build and push docker images
         uses: docker/build-push-action@v6
