@@ -1,7 +1,7 @@
 name: Publish Docker images to Docker Hub
 on: 
   push: 
-    branches: [feature/codeql]
+    branches: [codeql]
   
 jobs: 
   build_and_push:
